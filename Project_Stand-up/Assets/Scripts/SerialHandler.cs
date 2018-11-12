@@ -9,19 +9,15 @@ public class SerialHandler : MonoBehaviour
     public event SerialDataReceivedEventHandler OnDataReceived;
 
     //ポート名
-    //例
-    //Linuxでは/dev/ttyUSB0
-    //windowsではCOM1
-    //Macでは/dev/tty.usbmodem1421など
     public string portName = "COM5";
     public int baudRate = 9600;
 
-    private SerialPort serialPort_;
-    private Thread thread_;
-    private bool isRunning_ = false;
+    SerialPort m_SerialPort;
+    Thread m_Thread_;
+    bool m_IsRunning = false;
 
-    private string message_;
-    private bool isNewMessageReceived_ = false;
+    string m_Message;
+    bool m_IsNewMessageReceived = false;
 
     void Awake()
     {
@@ -30,11 +26,11 @@ public class SerialHandler : MonoBehaviour
 
     void Update()
     {
-        if (isNewMessageReceived_)
+        if (m_IsNewMessageReceived)
         {
-            OnDataReceived(message_);
+            OnDataReceived(m_Message);
         }
-        isNewMessageReceived_ = false;
+        m_IsNewMessageReceived = false;
     }
 
     void OnDestroy()
@@ -44,42 +40,40 @@ public class SerialHandler : MonoBehaviour
 
     private void Open()
     {
-        serialPort_ = new SerialPort(portName, baudRate, Parity.None, 8, StopBits.One);
-        //または
-        //serialPort_ = new SerialPort(portName, baudRate);
-        serialPort_.Open();
+        m_SerialPort = new SerialPort(portName, baudRate, Parity.None, 8, StopBits.One);
+        m_SerialPort.Open();
 
-        isRunning_ = true;
+        m_IsRunning = true;
 
-        thread_ = new Thread(Read);
-        thread_.Start();
+        m_Thread_ = new Thread(Read);
+        m_Thread_.Start();
     }
 
     private void Close()
     {
-        isNewMessageReceived_ = false;
-        isRunning_ = false;
+        m_IsNewMessageReceived = false;
+        m_IsRunning = false;
 
-        if (thread_ != null && thread_.IsAlive)
+        if (m_Thread_ != null && m_Thread_.IsAlive)
         {
-            thread_.Join();
+            m_Thread_.Join();
         }
 
-        if (serialPort_ != null && serialPort_.IsOpen)
+        if (m_SerialPort != null && m_SerialPort.IsOpen)
         {
-            serialPort_.Close();
-            serialPort_.Dispose();
+            m_SerialPort.Close();
+            m_SerialPort.Dispose();
         }
     }
 
     private void Read()
     {
-        while (isRunning_ && serialPort_ != null && serialPort_.IsOpen)
+        while (m_IsRunning && m_SerialPort != null && m_SerialPort.IsOpen)
         {
             try
             {
-                message_ = serialPort_.ReadLine();
-                isNewMessageReceived_ = true;
+                m_Message = m_SerialPort.ReadLine();
+                m_IsNewMessageReceived = true;
             }
             catch (System.Exception e)
             {
@@ -88,11 +82,12 @@ public class SerialHandler : MonoBehaviour
         }
     }
 
+    // 今回は不使用
     public void Write(string message)
     {
         try
         {
-            serialPort_.Write(message);
+            m_SerialPort.Write(message);
         }
         catch (System.Exception e)
         {

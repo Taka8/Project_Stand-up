@@ -26,4 +26,9 @@ public class Player : MonoBehaviour {
 
 	}
 
+    void OnTriggerEnter(Collider other)
+    {
+        other.GetComponent<ICollectable>().Modify();
+    }
+
 }

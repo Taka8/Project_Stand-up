@@ -6,6 +6,8 @@ public class TestSerialRead : MonoBehaviour {
 
     [SerializeField] SerialHandler serialHandler;
 
+    public float[] GetV = new float[4];
+
 	void Start () {
         //信号を受信したときに、そのメッセージの処理を行う
         serialHandler.OnDataReceived += OnDataReceived;
@@ -17,15 +19,19 @@ public class TestSerialRead : MonoBehaviour {
 
     void OnDataReceived(string message)
     {
-        Debug.Log("onReceived");
-
+        
         var data = message.Split(
                 new string[] { "\t" }, System.StringSplitOptions.None);
         if (data.Length < 2) return;
 
         try
         {
-            Debug.Log(data[0].ToString());
+            for (int i = 0; i < 4; i++)
+            {
+                GetV[i] = float.Parse(data[i]);
+
+                if (GetV[i] < 120f) GetV[i] = 0;
+            }
         }
         catch (System.Exception e)
         {

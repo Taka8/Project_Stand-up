@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum PlayerState
 {
@@ -17,6 +18,10 @@ public class PlayerMover : MonoBehaviour {
 
     [SerializeField] float speed = 5f;
 
+    [SerializeField] int count;
+
+    [SerializeField] Text countLabel;
+
     void Update()
     {
         Vector3 targetPos = Vector3.MoveTowards(transform.position, state == PlayerState.Down ? m_DownPosition : m_UpPosition, speed * Time.deltaTime);
@@ -26,7 +31,16 @@ public class PlayerMover : MonoBehaviour {
 
     public void Move(PlayerState state)
     {
+        if (this.state == PlayerState.Down && state == PlayerState.Up)
+        {
+            count++;
+
+            countLabel.text = count.ToString("D3");
+        }
+
         this.state = state;
+
+
     }
 
 }

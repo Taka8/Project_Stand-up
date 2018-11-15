@@ -12,9 +12,9 @@ public class CustomInput : MonoBehaviour {
     [SerializeField] Text[] valueLabel = new Text[4];
     [SerializeField] RectTransform pointer;
 
-    [SerializeField] float x;
+    [SerializeField] float gx;
     [SerializeField] float offsetX;
-    [SerializeField] float y;
+    [SerializeField] float gy;
     [SerializeField] float offsetY;
 
     /*
@@ -28,13 +28,15 @@ public class CustomInput : MonoBehaviour {
     
 	void Update () {
 
-        x = (((reader.GetV[0] * -lx) + (reader.GetV[1] * lx) + (reader.GetV[2] * -lx) + (reader.GetV[3] * lx)) / (1 + reader.GetV[0] + reader.GetV[1] + reader.GetV[2] + reader.GetV[3])) + offsetX;
-        y = (((reader.GetV[0] * ly) + (reader.GetV[1] * ly) + (reader.GetV[2] * -ly) + (reader.GetV[3] * -ly)) / (1 + reader.GetV[0] + reader.GetV[1] + reader.GetV[2] + reader.GetV[3])) + offsetY;
+        // 重力計算
+        gx = (((reader.GetV[0] * -lx) + (reader.GetV[1] * lx) + (reader.GetV[2] * -lx) + (reader.GetV[3] * lx)) / (1 + reader.GetV[0] + reader.GetV[1] + reader.GetV[2] + reader.GetV[3])) + offsetX;
+        gy = (((reader.GetV[0] * ly) + (reader.GetV[1] * ly) + (reader.GetV[2] * -ly) + (reader.GetV[3] * -ly)) / (1 + reader.GetV[0] + reader.GetV[1] + reader.GetV[2] + reader.GetV[3])) + offsetY;
 
-        x *= 5;
-        y *= 5;
+        gx *= 5;
+        gy *= 5;
 
         ApplyUserInterface();
+
     }
     
     void ApplyUserInterface()
@@ -44,7 +46,7 @@ public class CustomInput : MonoBehaviour {
             valueLabel[i].text = reader.GetV[i].ToString();
         }
 
-        pointer.anchoredPosition = new Vector2(x, y);
+        pointer.anchoredPosition = new Vector2(gx, gy);
     }
 
 }

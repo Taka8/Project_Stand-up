@@ -1982,6 +1982,8 @@ MonoBehaviour:
   m_UpPosition: {x: 0, y: 4, z: 0}
   state: 0
   speed: 5
+  count: 0
+  countLabel: {fileID: 1559679356}
 --- !u!114 &960278665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3003,9 +3005,9 @@ MonoBehaviour:
   - {fileID: 1813720136}
   - {fileID: 519200314}
   pointer: {fileID: 23612775}
-  x: 0
+  gx: 0
   offsetX: 0
-  y: 0
+  gy: 0
   offsetY: 0
 --- !u!4 &1669889646 stripped
 Transform:

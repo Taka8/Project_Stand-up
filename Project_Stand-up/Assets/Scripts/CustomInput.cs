@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CustomInput : MonoBehaviour {
+public class CustomInput : MonoBehaviour
+{
 
-    [SerializeField] float lx = 30, ly = 20;
+    [SerializeField] float lx = 15, ly = 10;
 
     [SerializeField] TestSerialRead reader;
 
@@ -19,18 +20,23 @@ public class CustomInput : MonoBehaviour {
 
     /*
      * センサーのイメージ
-     * (x0, y0) = (-lx, ly), (x1, y1) = (lx, ly) , ... 
-     * ⓪    |    ①
+     * ①    |    ②
      * --    o    --
-     * ②    |    ③
-     * 
+     * ④    |    ③
      * */
-    
-	void Update () {
 
-        // 重力計算
-        gx = (((reader.GetV[0] * -lx) + (reader.GetV[1] * lx) + (reader.GetV[2] * -lx) + (reader.GetV[3] * lx)) / (1 + reader.GetV[0] + reader.GetV[1] + reader.GetV[2] + reader.GetV[3])) + offsetX;
-        gy = (((reader.GetV[0] * ly) + (reader.GetV[1] * ly) + (reader.GetV[2] * -ly) + (reader.GetV[3] * -ly)) / (1 + reader.GetV[0] + reader.GetV[1] + reader.GetV[2] + reader.GetV[3])) + offsetY;
+    void Update()
+    {
+
+        // 値の取得
+        float m1 = reader.GetV[0];
+        float m2 = reader.GetV[1];
+        float m3 = reader.GetV[2];
+        float m4 = reader.GetV[3];
+
+        // 重心計算
+        gx = (m1 * -lx + m2 * lx + m3 * lx + m4 * -lx) / (1 + m1 + m2 + m3 + m4) + offsetX;
+        gy = (m1 * ly + m2 * ly + m3 * -ly + m4 * -ly) / (1 + m1 + m2 + m3 + m4) + offsetY;
 
         gx *= 5;
         gy *= 5;
@@ -38,10 +44,10 @@ public class CustomInput : MonoBehaviour {
         ApplyUserInterface();
 
     }
-    
+
     void ApplyUserInterface()
     {
-        for(int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             valueLabel[i].text = reader.GetV[i].ToString();
         }

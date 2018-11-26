@@ -19,7 +19,9 @@ public class TestSerialRead : MonoBehaviour {
 
     void OnDataReceived(string message)
     {
-        
+
+        Debug.Log(message);
+
         var data = message.Split(
                 new string[] { "\t" }, System.StringSplitOptions.None);
         if (data.Length < 2) return;

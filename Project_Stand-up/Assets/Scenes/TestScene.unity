@@ -770,8 +770,8 @@ RectTransform:
   m_Children:
   - {fileID: 1770310032}
   - {fileID: 717533901}
-  - {fileID: 1813720135}
   - {fileID: 519200313}
+  - {fileID: 1813720135}
   - {fileID: 23612775}
   m_Father: {fileID: 863780001}
   m_RootOrder: 1
@@ -1103,7 +1103,7 @@ GameObject:
   - component: {fileID: 519200315}
   - component: {fileID: 519200314}
   m_Layer: 5
-  m_Name: Text (4)
+  m_Name: Text (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1120,7 +1120,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 391622820}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -3002,8 +3002,8 @@ MonoBehaviour:
   valueLabel:
   - {fileID: 1770310033}
   - {fileID: 717533902}
-  - {fileID: 1813720136}
   - {fileID: 519200314}
+  - {fileID: 1813720136}
   pointer: {fileID: 23612775}
   gx: 0
   offsetX: 0
@@ -3120,7 +3120,7 @@ GameObject:
   - component: {fileID: 1813720137}
   - component: {fileID: 1813720136}
   m_Layer: 5
-  m_Name: Text (3)
+  m_Name: Text (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3137,7 +3137,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 391622820}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

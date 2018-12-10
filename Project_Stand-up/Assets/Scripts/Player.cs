@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
 
     [SerializeField] PlayerMover m_Mover;
     [SerializeField] float m_Threshold = 0.2f;
+    [SerializeField] CustomInput input;
 
 	void Start () {
 		
@@ -14,12 +15,12 @@ public class Player : MonoBehaviour {
 	void Update () {
 
         float h = Input.GetAxis("Vertical");
-        
-        if(m_Threshold < h)
+
+        if (input.isSitdown == false)
         {
             m_Mover.Move(PlayerState.Up);
         }
-        else if(h < -m_Threshold)
+        else
         {
             m_Mover.Move(PlayerState.Down);
         }

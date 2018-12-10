@@ -5,6 +5,7 @@ using UnityEngine;
 public class TestSerialRead : MonoBehaviour {
 
     [SerializeField] SerialHandler serialHandler;
+    [SerializeField] float m_Threshold = 500f;
 
     public float[] GetV = new float[4];
 
@@ -19,9 +20,7 @@ public class TestSerialRead : MonoBehaviour {
 
     void OnDataReceived(string message)
     {
-
-        Debug.Log(message);
-
+        
         var data = message.Split(
                 new string[] { "\t" }, System.StringSplitOptions.None);
         if (data.Length < 2) return;
@@ -32,7 +31,7 @@ public class TestSerialRead : MonoBehaviour {
             {
                 GetV[i] = float.Parse(data[i]);
 
-                if (GetV[i] < 120f) GetV[i] = 0;
+                if (GetV[i] < m_Threshold) GetV[i] = 0;
             }
         }
         catch (System.Exception e)

@@ -7,6 +7,7 @@ public class CustomInput : MonoBehaviour
 {
 
     [SerializeField] float lx = 15, ly = 10;
+    [SerializeField] float scaler = 10f;
 
     [SerializeField] TestSerialRead reader;
 
@@ -17,6 +18,8 @@ public class CustomInput : MonoBehaviour
     [SerializeField] float offsetX;
     [SerializeField] float gy;
     [SerializeField] float offsetY;
+
+    public bool isSitdown = false;
 
     /*
      * センサーのイメージ
@@ -34,12 +37,16 @@ public class CustomInput : MonoBehaviour
         float m3 = reader.GetV[2];
         float m4 = reader.GetV[3];
 
-        // 重心計算
-        gx = (m1 * -lx + m2 * lx + m3 * lx + m4 * -lx) / (1 + m1 + m2 + m3 + m4) + offsetX;
-        gy = (m1 * ly + m2 * ly + m3 * -ly + m4 * -ly) / (1 + m1 + m2 + m3 + m4) + offsetY;
+        float sum = 1 + m1 + m2 + m3 + m4;
 
-        gx *= 5;
-        gy *= 5;
+        // 重心計算
+        gx = (m1 * -lx + m2 * lx + m3 * lx + m4 * -lx) / (sum) + offsetX;
+        gy = (m1 * ly + m2 * ly + m3 * -ly + m4 * -ly) / (sum) + offsetY;
+
+        gx *= scaler;
+        gy *= scaler;
+
+        isSitdown = sum > 20000;
 
         ApplyUserInterface();
 
@@ -52,7 +59,7 @@ public class CustomInput : MonoBehaviour
             valueLabel[i].text = reader.GetV[i].ToString();
         }
 
-        pointer.anchoredPosition = new Vector2(gx, gy);
+        pointer.anchoredPosition = new Vector2(gx, gy); 
     }
 
 }

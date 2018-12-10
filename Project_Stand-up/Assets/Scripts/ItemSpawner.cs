@@ -18,12 +18,17 @@ public class ItemSpawner : MonoBehaviour
 
         Random.InitState(randomSeed);
 
+        int counter = 0;
+
         while (true)
         {
 
-            int r = Random.Range(0, spawnPoints.Length);
+            // int r = Random.Range(0, spawnPoints.Length);
+            
+            Instantiate(waveObject, spawnPoints[counter].position, Quaternion.identity);
 
-            Instantiate(waveObject, spawnPoints[r].position, Quaternion.identity);
+            counter++;
+            if (counter > 1) counter = 0;
 
             yield return new WaitForSeconds(duration);
         }

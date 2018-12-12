@@ -10,6 +10,7 @@ public class SerialHandler : MonoBehaviour
 
     //ポート名
     public string portName = "COM5";
+	public string portName2 = "/dev/tty.usbmodem441";
     public int baudRate = 9600;
 
     SerialPort m_SerialPort;
@@ -40,7 +41,12 @@ public class SerialHandler : MonoBehaviour
 
     private void Open()
     {
-        m_SerialPort = new SerialPort(portName, baudRate, Parity.None, 8, StopBits.One);
+		#if UNITY_STANDALONE_OSX
+        m_SerialPort = new SerialPort(portName2, baudRate, Parity.None, 8, StopBits.One);
+		#else
+		m_SerialPort = new SerialPort(portName, baudRate, Parity.None, 8, StopBits.One);
+		#endif
+
         m_SerialPort.Open();
 
         m_IsRunning = true;

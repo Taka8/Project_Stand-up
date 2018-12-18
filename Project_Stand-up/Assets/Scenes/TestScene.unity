@@ -1510,7 +1510,7 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 944741902}
   - {fileID: 1587906433}
-  duration: 2
+  duration: 5
   randomSeed: 0
 --- !u!1001 &701802168
 Prefab:
@@ -3240,6 +3240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   portName: COM5
+  portName2: /dev/tty.usbmodem441
   baudRate: 9600
 --- !u!4 &1666904295
 Transform:
